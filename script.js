@@ -14,38 +14,6 @@ setTimeout(function(){
 
 fetch("https://accounts.rec.net/account?username="+document.URL.split("/")[4]).then(d=>d.json()).then(j=>{CurrentPageUserId=j.accountId
 
-// Autoplay (when you start rr this room will be loaded instead of dorm/orientation)
-
-var roomsbutton=document.getElementsByClassName("jss341")[4]
-var autoplaybutton=roomsbutton.cloneNode(true)
-autoplaybutton.onclick = autoplay
-autoplaybutton.firstChild.children[1].firstChild.innerHTML="Set Autoplay"
-roomsbutton.parentElement.appendChild(autoplaybutton)
-
-function autoplay()
-{
-    let Input = prompt("Please insert the room name.","If none is given dorm will be set");
-    var roomname = "DormRoom"
-    if (Input!=null) {
-        roomname=Input
-    }
-fetch("https://api.rec.net/api/quickPlay/v1/set", {
-  "headers": {
-    "accept": "*/*",
-    "authorization": "Bearer " + JSON.parse(localStorage.getItem("oidc.user:https://auth.rec.net:recnet")).access_token,
-    "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\", \"Google Chrome\";v=\"96\"",
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": "\"Windows\""
-  },
-  "referrer": "https://rec.net/",
-  "referrerPolicy": "strict-origin",
-  "body": "RoomName="+roomname,
-  "method": "POST",
-  "mode": "cors",
-})
-}
-
 // Player cheering blocking and reporting
 
 var CheersString = ["General","Helpful","Sportmanship","GreatHost","Creative"]
