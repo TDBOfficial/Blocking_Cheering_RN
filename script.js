@@ -14,6 +14,7 @@ setTimeout(function(){
 
 fetch("https://accounts.rec.net/account?username="+document.URL.split("/")[4]).then(d=>d.json()).then(j=>{CurrentPageUserId=j.accountId
 
+
 // Player cheering blocking and reporting
 
 var CheersString = ["General","Helpful","Sportmanship","GreatHost","Creative"]
@@ -22,25 +23,11 @@ var ogbutton = document.getElementsByClassName("jss18 jss57")[13];
 var bbutton = ogbutton.cloneNode(true)
 var cbutton = ogbutton.cloneNode(true)
 var blocked = false
-fetch("https://api.rec.net/api/relationships/v1/relationshipwith/"+CurrentPageUserId, {
-  "headers": {
-    "authorization": "Bearer " + JSON.parse(localStorage.getItem("oidc.user:https://auth.rec.net:recnet")).access_token,
-      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-  },
-  "method": "GET",
-  "mode": "cors"
-}).then(d=>d.json()).then(j=>{
-    if ( j.Ignored==1 ) {
-        blocked=true
-        bbutton.firstChild.firstChild.firstChild.innerHTML = "Unblock"
-    } else {
-        bbutton.firstChild.firstChild.firstChild.innerHTML = "Block"
-    }
-})
 cbutton.onclick = Cheer
 cbutton.firstChild.firstChild.firstChild.innerHTML = "Cheer"
 ogbutton.parentElement.appendChild(cbutton)
 bbutton.onclick = Block
+bbutton.firstChild.firstChild.firstChild.innerHTML = "Block"
 ogbutton.parentElement.appendChild(bbutton)
 
 function Block() {
